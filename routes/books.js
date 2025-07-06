@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-// Create a new book
 router.post('/', (req, res) => {
   const { title, author, genre, publicationYear, availability } = req.body;
   const sql = 'INSERT INTO books (title, author, genre, publicationYear, availability) VALUES (?, ?, ?, ?, ?)';
@@ -12,7 +11,6 @@ router.post('/', (req, res) => {
   });
 });
 
-// Get all books
 router.get('/', (req, res) => {
   db.query('SELECT * FROM books', (err, rows) => {
     if (err) return res.status(500).send(err);
@@ -20,7 +18,6 @@ router.get('/', (req, res) => {
   });
 });
 
-// Get a book by ID
 router.get('/:id', (req, res) => {
   db.query('SELECT * FROM books WHERE id = ?', [req.params.id], (err, rows) => {
     if (err) return res.status(500).send(err);
@@ -29,7 +26,6 @@ router.get('/:id', (req, res) => {
   });
 });
 
-// Update a book
 router.put('/:id', (req, res) => {
   const { title, author, genre, publicationYear, availability } = req.body;
   const sql = 'UPDATE books SET title=?, author=?, genre=?, publicationYear=?, availability=? WHERE id=?';
@@ -39,7 +35,6 @@ router.put('/:id', (req, res) => {
   });
 });
 
-// Delete a book
 router.delete('/:id', (req, res) => {
   db.query('DELETE FROM books WHERE id = ?', [req.params.id], (err) => {
     if (err) return res.status(500).send(err);
@@ -47,7 +42,6 @@ router.delete('/:id', (req, res) => {
   });
 });
 
-// Search books by title or author
 router.get('/search/:query', (req, res) => {
   const searchQuery = `%${req.params.query}%`;
   const sql = 'SELECT * FROM books WHERE title LIKE ? OR author LIKE ?';
