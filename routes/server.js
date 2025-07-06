@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
-const bookRoutes = require('./routes/bookRoutes'); // <-- Import routes
-const db = require('./db'); // ensure db is connected
+const bookRoutes = require('./routes/bookRoutes'); 
+const db = require('./db'); 
 
-app.use(express.json()); // <-- Needed to parse JSON body
-app.use('/books', bookRoutes); // <-- Mount the router at /books
+app.use(express.json());
+app.use('/books', bookRoutes); 
 
 app.listen(3000, () => {
   console.log('Book Catalog API running on http://localhost:3000');
